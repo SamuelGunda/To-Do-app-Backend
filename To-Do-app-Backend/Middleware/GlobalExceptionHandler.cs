@@ -28,6 +28,12 @@ public class GlobalExceptionHandler : IExceptionHandler
                 Title = "Not found",
                 Detail = entityNotFoundException.Message
             },
+            InvalidLoginException => new ProblemDetails
+            {
+                Status = StatusCodes.Status401Unauthorized,
+                Title = "Invalid login",
+                Detail = "Invalid email or password"
+            },
             _ => new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,

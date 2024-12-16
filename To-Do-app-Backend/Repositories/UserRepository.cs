@@ -2,13 +2,14 @@
 using To_Do_app_Backend.Database;
 using To_Do_app_Backend.Exceptions;
 using To_Do_app_Backend.Models.Domains;
-using To_Do_app_Backend.Models.Entities;
+using To_Do_app_Backend.Models.Requests;
+using Task = System.Threading.Tasks.Task;
 
 namespace To_Do_app_Backend.Repositories;
 
 public class UserRepository(AppDbContext context) : IUserRepository
 {
-    public async Task AddAsync(AuthInfo user)
+    public async Task AddAsync(AuthRequest user)
     {
         var newUser = new User
         {
@@ -31,5 +32,10 @@ public class UserRepository(AppDbContext context) : IUserRepository
     public async Task<User?> GetByIdAsync(int id)
     {
         return await context.Users.FindAsync(id);
+    }
+
+    public async Task<User?> GetByEmailAsync(string email)
+    {
+        return await context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 }

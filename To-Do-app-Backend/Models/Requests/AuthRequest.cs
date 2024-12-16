@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace To_Do_app_Backend.Models.Entities;
+namespace To_Do_app_Backend.Models.Requests;
 
-public class AuthInfo
+public class AuthRequest
 {
     [EmailAddress]
     public required string Email { get; set; }

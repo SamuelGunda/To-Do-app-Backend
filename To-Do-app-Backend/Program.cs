@@ -9,9 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 var connection = new SqliteConnection("Data Source=:memory:");
 connection.Open();
 
+builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddCustomServices();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerSecurity();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
@@ -36,7 +38,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+/*app.UseHttpsRedirection();*/
 app.MapControllers();
 
 app.Run();

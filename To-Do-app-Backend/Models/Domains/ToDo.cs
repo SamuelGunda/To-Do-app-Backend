@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using To_Do_app_Backend.Models.Dtos;
 
 namespace To_Do_app_Backend.Models.Domains;
 
 [Table("ToDoTasks")]
-public class ToDoTask
+public class ToDo
 {
     [Key]
     public int Id { get; set; }
@@ -20,9 +21,22 @@ public class ToDoTask
     public int UserId { get; set; }
     public User User { get; set; }
     
-    public ToDoTask()
+    public ToDo()
     {
         State = false;
         CreatedAt = DateTime.Now;
+    }
+    
+    public ToDoDto ToDto()
+    {
+        return new ToDoDto
+        {
+            Id = Id,
+            Title = Title,
+            Description = Description,
+            State = State,
+            CreatedAt = CreatedAt,
+            UserId = UserId
+        };
     }
 }
